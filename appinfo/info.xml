@@ -40,4 +40,8 @@
     <dependencies>
         <nextcloud min-version="26" max-version="26"/>
     </dependencies>
+    <settings>
+        <!-- <personal>OCA\IntegrationLibreTranslate\Settings\PersonalSettings</personal> -->
+        <admin>OCA\IntegrationLibreTranslate\Settings\AdminSettings</admin>
+    </settings>
 </info>
