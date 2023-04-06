@@ -4,13 +4,39 @@
     <id>integration_libretranslate</id>
     <name>LibreTranslate Integration</name>
     <summary>LibreTranslate integration providing translations using your own server/api key</summary>
-    <description><![CDATA[LibreTranslate integration providing translations using your own server/api key]]></description>
+    <description><![CDATA[
+        LibreTranslate integration providing translations using your own server/api key
+
+        ## Configure
+
+        Configuration is done using your server's CLI. These following configuration values are available:
+
+        - `host`: **required** URL of (your) LibreTranslate instance (without trailing `/`)
+        - `port`: _optional_ Needed if you are **not** running LibreTranslate on the default http port (http 80 or https 443). E.g. if it is running on a custom port (or LT's default port 5000) (defaults to _`null`_)
+        - `apikey`: _optional_ Needed if the LT instance requires an api key (defaults to _`null`_)
+        - `from_lang`: _optional_ default language key you want to translate from (defaults to _en_)
+        - `to_lang`: _optional_ default language key of your destination language (defaults to _de_)
+
+        ### Example:
+        ```bash
+        occ config:app:set integration_libretranslate host --value="https://cloud.your-domain.tld"
+        occ config:app:set integration_libretranslate port --value="5000"
+        occ config:app:set integration_libretranslate apikey --value="<API_KEY>"
+        occ config:app:set integration_libretranslate from_lang --value="en"
+        occ config:app:set integration_libretranslate to_lang --value="de"
+        ```
+    ]]></description>
+    <documentation>
+        <admin>https://github.com/v1r0x/integration_libretranslate/blob/master/README.md</admin>
+    </documentation>
     <version>1.0.0</version>
     <licence>agpl</licence>
     <author mail="vinzenz.rosenkranz@posteo.de" >Vinzenz Rosenkranz</author>
     <namespace>IntegrationLibreTranslate</namespace>
     <category>integration</category>
-    <bugs>https://github.com/v1r0x/integration_libretranslate</bugs>
+    <website>https://github.com/v1r0x/integration_libretranslate</website>
+    <bugs>https://github.com/v1r0x/integration_libretranslate/issues</bugs>
+    <repository type="git">https://github.com/v1r0x/integration_libretranslate.git</repository>
     <dependencies>
         <nextcloud min-version="26" max-version="26"/>
     </dependencies>
