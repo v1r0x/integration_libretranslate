@@ -1,6 +1,3 @@
-# SPDX-FileCopyrightText: Bernhard Posselt <dev@bernhard-posselt.com>
-# SPDX-License-Identifier: AGPL-3.0-or-later
-
 # Generic Makefile for building and packaging a Nextcloud app which uses npm and
 # Composer.
 #
@@ -46,6 +43,20 @@ else
 	composer install --prefer-dist
 endif
 
+# Installs and updates the composer dependencies. If composer is not installed
+# a copy is fetched from the web
+.PHONY: composer-nodev
+composer-nodev:
+ifeq (, $(composer))
+	@echo "No composer command available, downloading a copy from the web"
+	mkdir -p $(build_tools_directory)
+	curl -sS https://getcomposer.org/installer | php
+	mv composer.phar $(build_tools_directory)
+	php $(build_tools_directory)/composer.phar install --prefer-dist --no-dev
+else
+	composer install --prefer-dist --no-dev
+endif
+
 # Removes the appstore build
 .PHONY: clean
 clean:
@@ -74,7 +85,7 @@ source:
 
 # Builds the source package for the app store, ignores php and js tests
 .PHONY: appstore
-appstore:
+appstore: distclean composer-nodev
 	rm -rf $(appstore_build_directory)
 	mkdir -p $(appstore_build_directory)
 	tar --exclude-vcs \
