@@ -21,31 +21,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
- /** @var array $_ */
+ $appId = OCA\IntegrationLibreTranslate\AppInfo\Application::APP_ID;
+ \OCP\Util::addScript($appId, $appId . '-adminSettings');
 ?>
-<div id="integration-libretranslate" class="section">
-    <h2 class="inlineblock">Libretranslate Integration</h2>
-
-    <form>
-        <label for="integration-libretranslate-host">
-            Host:
-        </label>
-        <input type="text" id="integration-libretranslate-host" value="<?php p($_['host']) ?>" placeholder="https://cloud.your-domain.tld" />
-        <label for="integration-libretranslate-port">
-            Port:
-        </label>
-        <input type="text" id="integration-libretranslate-port" value="<?php p($_['port']) ?>" placeholder="E.g. 5000" />
-        <label for="integration-libretranslate-apikey">
-            API-Key:
-        </label>
-        <input type="text" id="integration-libretranslate-apikey" value="<?php p($_['apikey']) ?>" placeholder="xxxxx-xxxxx-xxxxx" />
-        <label for="integration-libretranslate-from-lang">
-            Source Language:
-        </label>
-        <input type="text" id="integration-libretranslate-from-lang" value="<?php p($_['from']) ?>" placeholder="en" />
-        <label for="integration-libretranslate-to-lang">
-            Target Language:
-        </label>
-        <input type="text" id="integration-libretranslate-to-lang" value="<?php p($_['to']) ?>" placeholder="de" />
-    </form>
+<div id="integration-libretranslate-prefs">
 </div>

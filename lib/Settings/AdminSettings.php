@@ -26,32 +26,44 @@ declare(strict_types=1);
  namespace OCA\IntegrationLibreTranslate\Settings;
 
  use OCP\AppFramework\Http\TemplateResponse;
+ use OCP\AppFramework\Services\IInitialState;
  use OCP\IConfig;
  use OCP\Settings\ISettings;
+
+ use OCA\IntegrationLibreTranslate\AppInfo\Application;
  
  class AdminSettings implements ISettings {
     private $config;
+    private $initialStateService;
 
     /**
      * @param IConfig $config
+     * @param IInitialState $initialStateService
      */
-    public function __construct(IConfig $config) {
+    public function __construct(
+        IConfig $config,
+        IInitialState $initialStateService,
+    ) {
         $this->config = $config;
+        $this->initialStateService = $initialStateService;
     }
 
     public function getForm(): TemplateResponse {
-        $host = $this->config->getAppValue('integration_libretranslate', 'host', 'http://localhost');
-        $port = $this->config->getAppValue('integration_libretranslate', 'port', null);
-        $apikey = $this->config->getAppValue('integration_libretranslate', 'apikey', null);
-        $from = $this->config->getAppValue('integration_libretranslate', 'from_lang', 'en');
-        $to = $this->config->getAppValue('integration_libretranslate', 'to_lang', 'de');
-        return new TemplateResponse('integration_libretranslate', 'settings.admin', [
+        $host = $this->config->getAppValue(Application::APP_ID, 'host', 'http://localhost');
+        $port = $this->config->getAppValue(Application::APP_ID, 'port', null);
+        $apikey = $this->config->getAppValue(Application::APP_ID, 'apikey', '');
+        $fromLang = $this->config->getAppValue(Application::APP_ID, 'from_lang', 'en');
+        $toLang = $this->config->getAppValue(Application::APP_ID, 'to_lang', 'de');
+		
+        $this->initialStateService->provideInitialState('admin_config', [
             'host' => $host,
             'port' => $port,
             'apikey' => $apikey,
-            'from' => $from,
-            'to' => $to,
+            'fromLang' => $fromLang,
+            'toLang' => $toLang,
         ]);
+
+        return new TemplateResponse(Application::APP_ID, 'settings.admin');
     }
 
     public function getSection(): string {
