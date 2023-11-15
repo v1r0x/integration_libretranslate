@@ -38,7 +38,7 @@
     <bugs>https://github.com/v1r0x/integration_libretranslate/issues</bugs>
     <repository type="git">https://github.com/v1r0x/integration_libretranslate.git</repository>
     <dependencies>
-        <nextcloud min-version="26" max-version="26"/>
+        <nextcloud min-version="26" max-version="28"/>
     </dependencies>
     <settings>
         <!-- <personal>OCA\IntegrationLibreTranslate\Settings\PersonalSettings</personal> -->
