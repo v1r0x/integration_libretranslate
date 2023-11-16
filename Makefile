@@ -57,16 +57,23 @@ else
 	composer install --prefer-dist --no-dev
 endif
 
+.PHONY: npm-js
+npm-js:
+	npm ci
+	npm run build
+
 # Removes the appstore build
 .PHONY: clean
 clean:
 	rm -rf ./build
+	rm -rf ./js
 
 # Same as clean but also removes dependencies installed by composer, bower and
 # npm
 .PHONY: distclean
 distclean: clean
 	rm -rf vendor
+	rm -rf node_modules
 
 # Builds the source and appstore package
 .PHONY: dist
@@ -85,11 +92,12 @@ source:
 
 # Builds the source package for the app store, ignores php and js tests
 .PHONY: appstore
-appstore: distclean composer-nodev
+appstore: distclean composer-nodev npm-js
 	rm -rf $(appstore_build_directory)
 	mkdir -p $(appstore_build_directory)
 	tar --exclude-vcs \
 	--exclude="../$(app_name)/build" \
+	--exclude="../$(app_name)/node_modules" \
 	--exclude="../$(app_name)/tests" \
 	--exclude="../$(app_name)/Makefile" \
 	--exclude="../$(app_name)/*.log" \
