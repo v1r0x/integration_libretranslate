@@ -109,8 +109,8 @@
                         host: this.state.host,
                         port: this.state.port,
                         apikey: this.state.apikey,
-                        fromLang: this.state.fromLang,
-                        toLang: this.state.toLang,
+                        from_lang: this.state.fromLang,
+                        to_lang: this.state.toLang,
                     },
                 };
 
